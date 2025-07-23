@@ -44,7 +44,7 @@ public class StudentController {
         studentService.deleteStudent(id);
     }
 
-    @GetMapping("/fetch/all/with-subjects/{id}")
+    @GetMapping("/fetch/with-subjects/{id}")
     public StudentWithSubjectResponse getStudentWithSubjects(@PathVariable Integer id) {
         return studentService.getStudentWithSubjectsByEnrollmentNo(id);
     }

@@ -1,5 +1,7 @@
 package com.project.sms.dto.request;
 
+import com.project.sms.validation.ValidGender;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -11,6 +13,7 @@ public class StudentRequest {
     private String name;
 
     @NotBlank
+    @ValidGender
     private String gender;
 
     @Email

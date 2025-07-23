@@ -2,7 +2,7 @@ package com.project.sms.service;
 
 import org.springframework.stereotype.Service;
 
-import com.project.sms.dto.request.AssignSubjectRequest;
+import com.project.sms.dto.request.StudentSubjectRequest;
 import com.project.sms.model.Student;
 import com.project.sms.model.StudentSubject;
 import com.project.sms.model.Subject;
@@ -22,7 +22,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
     private final StudentSubjectRepository studentSubjectRepository;
 
     @Override
-    public void assignSubjectToStudent(AssignSubjectRequest request) {
+    public void assignSubjectToStudent(StudentSubjectRequest request) {
         Integer studentId = request.getStudentId();
         Integer subjectId = request.getSubjectId();
 
@@ -41,5 +41,14 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
         studentSubject.setSubject(subject);
 
         studentSubjectRepository.save(studentSubject);
+    }
+
+    @Override
+    public void unassignSubject(StudentSubjectRequest request) {
+        StudentSubject mapping = studentSubjectRepository
+            .findByStudentEnrollmentNoAndSubjectId(request.getStudentId(), request.getSubjectId())
+            .orElseThrow(() -> new EntityNotFoundException("Subject not assigned to student"));
+
+        studentSubjectRepository.delete(mapping);
     }
 }

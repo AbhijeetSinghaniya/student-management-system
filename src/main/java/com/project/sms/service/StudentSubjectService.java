@@ -1,7 +1,9 @@
 package com.project.sms.service;
 
-import com.project.sms.dto.request.AssignSubjectRequest;
+import com.project.sms.dto.request.StudentSubjectRequest;
 
 public interface StudentSubjectService {
-    void assignSubjectToStudent(AssignSubjectRequest request);
+    void assignSubjectToStudent(StudentSubjectRequest request);
+
+    void unassignSubject(StudentSubjectRequest request);
 }

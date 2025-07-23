@@ -2,7 +2,7 @@ package com.project.sms.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 
-public class AssignSubjectRequest {
+public class StudentSubjectRequest {
     @NotNull
     private Integer studentId;
 
