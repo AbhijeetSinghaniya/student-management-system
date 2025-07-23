@@ -26,7 +26,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
         Integer studentId = request.getStudentId();
         Integer subjectId = request.getSubjectId();
 
-        if (studentSubjectRepository.existsByStudentIdAndSubjectId(studentId, subjectId)) {
+        if (studentSubjectRepository.existsByStudent_EnrollmentNoAndSubject_Id(studentId, subjectId)) {
             throw new IllegalArgumentException("Subject already assigned to student");
         }
 

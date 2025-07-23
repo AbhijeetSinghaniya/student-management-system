@@ -1,5 +1,7 @@
 package com.project.sms.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.sms.dto.request.StudentRequest;
 import com.project.sms.dto.response.StudentResponse;
+import com.project.sms.dto.response.StudentWithSubjectResponse;
 import com.project.sms.service.StudentService;
 
 import jakarta.validation.Valid;
@@ -39,5 +42,15 @@ public class StudentController {
     @DeleteMapping("/delete/{id}")
     public void deleteStudent(@PathVariable Integer id) {
         studentService.deleteStudent(id);
+    }
+
+    @GetMapping("/fetch/all/with-subjects/{id}")
+    public StudentWithSubjectResponse getStudentWithSubjects(@PathVariable Integer id) {
+        return studentService.getStudentWithSubjectsByEnrollmentNo(id);
+    }
+
+    @GetMapping("/fetch/all/with-subjects")
+    public List<StudentWithSubjectResponse> getAllStudentsWithSubjects() {
+        return studentService.getAllStudentsWithSubjects();
     }
 }

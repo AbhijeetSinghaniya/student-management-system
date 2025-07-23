@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.project.sms.dto.request.SubjectRequest;
 import com.project.sms.dto.response.SubjectResponse;
 import com.project.sms.model.Subject;
+import com.project.sms.repository.StudentSubjectRepository;
 import com.project.sms.repository.SubjectRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -15,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class SubjectServiceImpl implements SubjectService {
 
     private final SubjectRepository subjectRepository;
-    // private final StudentSubjectRepository studentSubjectRepository;
+    private final StudentSubjectRepository studentSubjectRepository;
 
     @Override
     public SubjectResponse addSubject(SubjectRequest request) {
@@ -35,13 +36,12 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public void deleteSubject(Integer subjectId) {
         if (!subjectRepository.existsById(subjectId)) {
-            throw new EntityNotFoundException("Subject not found");
+            throw new EntityNotFoundException("Subject not found with ID: " + subjectId);
         }
 
-        // if (studentSubjectRepository.existsBySubjectId(subjectId)) {
-        // throw new IllegalStateException("Cannot delete subject assigned to a
-        // student");
-        // }
+        if (studentSubjectRepository.existsBySubjectId(subjectId)) {
+            throw new IllegalStateException("Cannot delete subject. It is assigned to one or more students.");
+        }
 
         subjectRepository.deleteById(subjectId);
     }
